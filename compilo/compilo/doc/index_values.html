@@ -1,0 +1,226 @@
+<html>
+<head>
+<link rel="stylesheet" href="style.css" type="text/css">
+<meta content="text/html; charset=utf8" http-equiv="Content-Type">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="Start" href="index.html">
+<link title="Index of types" rel=Appendix href="index_types.html">
+<link title="Index of exceptions" rel=Appendix href="index_exceptions.html">
+<link title="Index of values" rel=Appendix href="index_values.html">
+<link title="Index of modules" rel=Appendix href="index_modules.html">
+<link title="ASMType" rel="Chapter" href="ASMType.html">
+<link title="CLessType" rel="Chapter" href="CLessType.html">
+<link title="Generate" rel="Chapter" href="Generate.html">
+<link title="Optimisation" rel="Chapter" href="Optimisation.html">
+<link title="PrintC" rel="Chapter" href="PrintC.html">
+<link title="PrintAST" rel="Chapter" href="PrintAST.html">
+<link title="Interpreter" rel="Chapter" href="Interpreter.html">
+<link title="Tools" rel="Chapter" href="Tools.html"><title>Index of values</title>
+</head>
+<body>
+<div class="navbar">&nbsp;<a class="up" href="index.html" title="Index">Up</a>
+&nbsp;</div>
+<h1>Index of values</h1>
+<table>
+<tr><td align="left"><br></td></tr>
+<tr><td><a href="Tools.html#VAL(|%)">(|%)</a> [<a href="Tools.html">Tools</a>]</td>
+<td><div class="info">
+<code class="code"> q |% t </code> renvoie une liste dont la tête est <code class="code">t</code> et la queue est <code class="code">q</code> (i.e.
+</div>
+</td></tr>
+<tr><td><a href="Tools.html#VAL(|>)">(|&gt;)</a> [<a href="Tools.html">Tools</a>]</td>
+<td><div class="info">
+<code class="code"> x |&gt; f </code> renvoie l'évaluation de <code class="code">f</code> sur <code class="code"> x </code> (i.e.
+</div>
+</td></tr>
+<tr><td align="left"><br>A</td></tr>
+<tr><td><a href="Tools.html#VALaddr_lbl_of_string">addr_lbl_of_string</a> [<a href="Tools.html">Tools</a>]</td>
+<td><div class="info">
+Associe à chaque chaîne de caractère littéral une adresse.
+</div>
+</td></tr>
+<tr><td><a href="Interpreter.html#VALallocator">allocator</a> [<a href="Interpreter.html">Interpreter</a>]</td>
+<td><div class="info">
+Fonction malloc
+</div>
+</td></tr>
+<tr><td align="left"><br>D</td></tr>
+<tr><td><a href="ASMType.html#VALdnpz">dnpz</a> [<a href="ASMType.html">ASMType</a>]</td>
+<td></td></tr>
+<tr><td align="left"><br>F</td></tr>
+<tr><td><a href="Optimisation.html#VALfindLabel">findLabel</a> [<a href="Optimisation.html">Optimisation</a>]</td>
+<td></td></tr>
+<tr><td><a href="Tools.html#VALfresh_lbl">fresh_lbl</a> [<a href="Tools.html">Tools</a>]</td>
+<td><div class="info">
+Retourne un nom unique contenant la chaine de caractère donnée en argument
+</div>
+</td></tr>
+<tr><td align="left"><br>G</td></tr>
+<tr><td><a href="Generate.html#VALgenerate_asm_expression">generate_asm_expression</a> [<a href="Generate.html">Generate</a>]</td>
+<td><div class="info">
+<code class="code">generate_asm_expression varl sp e p</code> génère les instructions implémentant l'expression <code class="code">e</code> et l'ajoute
+    au programme <code class="code">p</code> passé en paramètre.
+</div>
+</td></tr>
+<tr><td><a href="Generate.html#VALgenerate_asm_statement">generate_asm_statement</a> [<a href="Generate.html">Generate</a>]</td>
+<td><div class="info">
+<code class="code">generate_asm_statement varl sp returnLabel s p</code> génère les instructions implémentant le statement <code class="code">s</code> et l'ajoute
+    au programme <code class="code">p</code> passé en paramètre.
+</div>
+</td></tr>
+<tr><td><a href="Generate.html#VALgenerate_asm_top">generate_asm_top</a> [<a href="Generate.html">Generate</a>]</td>
+<td><div class="info">
+<code class="code">generate_asm_top varl p dec</code> génère les instructions implémentant la déclaration  <code class="code">dec</code> et l'ajoute
+    au programme <code class="code">p</code> passé en paramètre.
+</div>
+</td></tr>
+<tr><td><a href="Tools.html#VALgetFunDec">getFunDec</a> [<a href="Tools.html">Tools</a>]</td>
+<td><div class="info">
+<code class="code">getFunDec s</code> renvoi la définition de la fonction de nom <code class="code">s</code>
+</div>
+</td></tr>
+<tr><td align="left"><br>I</td></tr>
+<tr><td><a href="CLessType.html#VALiter_fun_expr">iter_fun_expr</a> [<a href="CLessType.html">CLessType</a>]</td>
+<td><div class="info">
+Iterateur sur les expressions
+</div>
+</td></tr>
+<tr><td><a href="CLessType.html#VALiter_fun_stat">iter_fun_stat</a> [<a href="CLessType.html">CLessType</a>]</td>
+<td><div class="info">
+Iterateur sur les statements
+</div>
+</td></tr>
+<tr><td><a href="CLessType.html#VALiter_fun_top">iter_fun_top</a> [<a href="CLessType.html">CLessType</a>]</td>
+<td></td></tr>
+<tr><td align="left"><br>L</td></tr>
+<tr><td><a href="Interpreter.html#VALlink">link</a> [<a href="Interpreter.html">Interpreter</a>]</td>
+<td><div class="info">
+<code class="code">link fun prog</code> édite les liens du programme <code class="code">prog</code> et renvoi un tableau d'instruction ainsi
+que l'index du début de la fonction <code class="code">fun</code> dans ce tableau
+</div>
+</td></tr>
+<tr><td align="left"><br>M</td></tr>
+<tr><td><a href="ASMType.html#VALmap_arg">map_arg</a> [<a href="ASMType.html">ASMType</a>]</td>
+<td></td></tr>
+<tr><td align="left"><br>N</td></tr>
+<tr><td><a href="Interpreter.html#VALnew_state">new_state</a> [<a href="Interpreter.html">Interpreter</a>]</td>
+<td><div class="info">
+Créé une nouvelle machine virtuelle
+</div>
+</td></tr>
+<tr><td align="left"><br>P</td></tr>
+<tr><td><a href="Tools.html#VALp">p</a> [<a href="Tools.html">Tools</a>]</td>
+<td><div class="info">
+<code class="code">p s</code> renvoie l'instruction assembleur décrite par <code class="code">s</code>.
+</div>
+</td></tr>
+<tr><td><a href="Tools.html#VALpa">pa</a> [<a href="Tools.html">Tools</a>]</td>
+<td><div class="info">
+<code class="code">pa s a</code> renvoie l'instruction assembleur décrite par <code class="code">s</code> ou les occurrences de '%a' sont remplacé par <code class="code">a</code>.
+</div>
+</td></tr>
+<tr><td><a href="Tools.html#VALparse_arg">parse_arg</a> [<a href="Tools.html">Tools</a>]</td>
+<td><div class="info">
+<code class="code">parse_arg s i</code> renvoie l'argument d'une instruction assembleur décrit par <code class="code">s</code> où les occurrences de '%i' sont remplacé par <code class="code">i</code>.
+</div>
+</td></tr>
+<tr><td><a href="PrintAST.html#VALperror_exp">perror_exp</a> [<a href="PrintAST.html">PrintAST</a>]</td>
+<td></td></tr>
+<tr><td><a href="PrintAST.html#VALperror_stat">perror_stat</a> [<a href="PrintAST.html">PrintAST</a>]</td>
+<td></td></tr>
+<tr><td><a href="Tools.html#VALpi">pi</a> [<a href="Tools.html">Tools</a>]</td>
+<td><div class="info">
+<code class="code">pi s i</code> renvoie l'instruction assembleur décrit par <code class="code">s</code> où les occurrences de '%i' sont remplacé par <code class="code">i</code>.
+</div>
+</td></tr>
+<tr><td><a href="Tools.html#VALpr">pr</a> [<a href="Tools.html">Tools</a>]</td>
+<td><div class="info">
+<code class="code">pr s r</code> renvoie l'instruction assembleur décrite par <code class="code">s</code> ou les occurrences de '%r' sont remplacé par le registre <code class="code">r</code>.
+</div>
+</td></tr>
+<tr><td><a href="ASMType.html#VALprint_arg">print_arg</a> [<a href="ASMType.html">ASMType</a>]</td>
+<td></td></tr>
+<tr><td><a href="PrintAST.html#VALprint_bop">print_bop</a> [<a href="PrintAST.html">PrintAST</a>]</td>
+<td></td></tr>
+<tr><td><a href="PrintC.html#VALprint_bop">print_bop</a> [<a href="PrintC.html">PrintC</a>]</td>
+<td></td></tr>
+<tr><td><a href="PrintAST.html#VALprint_dec_list">print_dec_list</a> [<a href="PrintAST.html">PrintAST</a>]</td>
+<td></td></tr>
+<tr><td><a href="PrintAST.html#VALprint_declaration">print_declaration</a> [<a href="PrintAST.html">PrintAST</a>]</td>
+<td></td></tr>
+<tr><td><a href="PrintC.html#VALprint_declaration">print_declaration</a> [<a href="PrintC.html">PrintC</a>]</td>
+<td></td></tr>
+<tr><td><a href="PrintAST.html#VALprint_dot_bop">print_dot_bop</a> [<a href="PrintAST.html">PrintAST</a>]</td>
+<td></td></tr>
+<tr><td><a href="PrintAST.html#VALprint_dot_dec">print_dot_dec</a> [<a href="PrintAST.html">PrintAST</a>]</td>
+<td></td></tr>
+<tr><td><a href="PrintAST.html#VALprint_dot_dec_list">print_dot_dec_list</a> [<a href="PrintAST.html">PrintAST</a>]</td>
+<td></td></tr>
+<tr><td><a href="PrintAST.html#VALprint_dot_expression">print_dot_expression</a> [<a href="PrintAST.html">PrintAST</a>]</td>
+<td></td></tr>
+<tr><td><a href="PrintAST.html#VALprint_dot_list">print_dot_list</a> [<a href="PrintAST.html">PrintAST</a>]</td>
+<td></td></tr>
+<tr><td><a href="PrintAST.html#VALprint_dot_mop">print_dot_mop</a> [<a href="PrintAST.html">PrintAST</a>]</td>
+<td></td></tr>
+<tr><td><a href="PrintAST.html#VALprint_dot_stat">print_dot_stat</a> [<a href="PrintAST.html">PrintAST</a>]</td>
+<td></td></tr>
+<tr><td><a href="PrintAST.html#VALprint_escaped">print_escaped</a> [<a href="PrintAST.html">PrintAST</a>]</td>
+<td></td></tr>
+<tr><td><a href="PrintAST.html#VALprint_expression">print_expression</a> [<a href="PrintAST.html">PrintAST</a>]</td>
+<td></td></tr>
+<tr><td><a href="PrintC.html#VALprint_expression">print_expression</a> [<a href="PrintC.html">PrintC</a>]</td>
+<td></td></tr>
+<tr><td><a href="ASMType.html#VALprint_instruction">print_instruction</a> [<a href="ASMType.html">ASMType</a>]</td>
+<td></td></tr>
+<tr><td><a href="PrintAST.html#VALprint_list">print_list</a> [<a href="PrintAST.html">PrintAST</a>]</td>
+<td></td></tr>
+<tr><td><a href="PrintC.html#VALprint_list">print_list</a> [<a href="PrintC.html">PrintC</a>]</td>
+<td></td></tr>
+<tr><td><a href="PrintAST.html#VALprint_mop">print_mop</a> [<a href="PrintAST.html">PrintAST</a>]</td>
+<td></td></tr>
+<tr><td><a href="PrintC.html#VALprint_mop">print_mop</a> [<a href="PrintC.html">PrintC</a>]</td>
+<td></td></tr>
+<tr><td><a href="ASMType.html#VALprint_programme">print_programme</a> [<a href="ASMType.html">ASMType</a>]</td>
+<td></td></tr>
+<tr><td><a href="ASMType.html#VALprint_reg">print_reg</a> [<a href="ASMType.html">ASMType</a>]</td>
+<td><div class="info">
+Impresssion d'un registre
+</div>
+</td></tr>
+<tr><td><a href="PrintAST.html#VALprint_statement">print_statement</a> [<a href="PrintAST.html">PrintAST</a>]</td>
+<td></td></tr>
+<tr><td><a href="PrintC.html#VALprint_statement">print_statement</a> [<a href="PrintC.html">PrintC</a>]</td>
+<td></td></tr>
+<tr><td><a href="PrintC.html#VALprint_statement_curly">print_statement_curly</a> [<a href="PrintC.html">PrintC</a>]</td>
+<td></td></tr>
+<tr><td><a href="PrintAST.html#VALprint_tab">print_tab</a> [<a href="PrintAST.html">PrintAST</a>]</td>
+<td></td></tr>
+<tr><td><a href="PrintC.html#VALprint_tab">print_tab</a> [<a href="PrintC.html">PrintC</a>]</td>
+<td></td></tr>
+<tr><td><a href="PrintC.html#VALprint_var">print_var</a> [<a href="PrintC.html">PrintC</a>]</td>
+<td></td></tr>
+<tr><td align="left"><br>R</td></tr>
+<tr><td><a href="Optimisation.html#VALremoveDeadCode">removeDeadCode</a> [<a href="Optimisation.html">Optimisation</a>]</td>
+<td></td></tr>
+<tr><td><a href="Optimisation.html#VALremovePopPush">removePopPush</a> [<a href="Optimisation.html">Optimisation</a>]</td>
+<td></td></tr>
+<tr><td><a href="Optimisation.html#VALremoveZeroAdd">removeZeroAdd</a> [<a href="Optimisation.html">Optimisation</a>]</td>
+<td></td></tr>
+<tr><td><a href="ASMType.html#VALreplace_holl">replace_holl</a> [<a href="ASMType.html">ASMType</a>]</td>
+<td></td></tr>
+<tr><td><a href="ASMType.html#VALreplace_holl_arg">replace_holl_arg</a> [<a href="ASMType.html">ASMType</a>]</td>
+<td></td></tr>
+<tr><td><a href="Interpreter.html#VALrun_machine">run_machine</a> [<a href="Interpreter.html">Interpreter</a>]</td>
+<td><div class="info">
+<code class="code"> run_machine l state</code> exécute la machine virtuelle <code class="code">state</code> avec le niveau de débogage <code class="code">l</code> et renvoie le contenue de RAX à la fin de l'exécution
+</div>
+</td></tr>
+<tr><td align="left"><br>U</td></tr>
+<tr><td><a href="Interpreter.html#VALunbox_arg">unbox_arg</a> [<a href="Interpreter.html">Interpreter</a>]</td>
+<td><div class="info">
+Écris du code assembleur en différenciant les adresses
+</div>
+</td></tr>
+</table>
+</body>
+</html>

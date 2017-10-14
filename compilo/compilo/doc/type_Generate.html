@@ -1,0 +1,32 @@
+<html><head>
+<link rel="stylesheet" href="style.css" type="text/css">
+<meta content="text/html; charset=utf8" http-equiv="Content-Type">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="Start" href="index.html">
+<link title="Index of types" rel=Appendix href="index_types.html">
+<link title="Index of exceptions" rel=Appendix href="index_exceptions.html">
+<link title="Index of values" rel=Appendix href="index_values.html">
+<link title="Index of modules" rel=Appendix href="index_modules.html">
+<link title="ASMType" rel="Chapter" href="ASMType.html">
+<link title="CLessType" rel="Chapter" href="CLessType.html">
+<link title="Generate" rel="Chapter" href="Generate.html">
+<link title="Optimisation" rel="Chapter" href="Optimisation.html">
+<link title="PrintC" rel="Chapter" href="PrintC.html">
+<link title="PrintAST" rel="Chapter" href="PrintAST.html">
+<link title="Interpreter" rel="Chapter" href="Interpreter.html">
+<link title="Tools" rel="Chapter" href="Tools.html"><title>Generate</title>
+</head>
+<body>
+<code class="code"><span class="keyword">sig</span><br>
+&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;generate_asm_expression&nbsp;:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;(string&nbsp;*&nbsp;<span class="constructor">ASMType</span>.arg)&nbsp;list&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;int&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">CLessType</span>.expression&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">ASMType</span>.asm_program&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">ASMType</span>.asm_program<br>
+&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;generate_asm_statement&nbsp;:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;(string&nbsp;*&nbsp;<span class="constructor">ASMType</span>.arg)&nbsp;list&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;int&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;string&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="constructor">CLessType</span>.statement&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">ASMType</span>.asm_program&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">ASMType</span>.asm_program<br>
+&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;generate_asm_top&nbsp;:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;(string&nbsp;*&nbsp;<span class="constructor">ASMType</span>.arg)&nbsp;list&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="constructor">ASMType</span>.asm_program&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">CLessType</span>.declaration&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">ASMType</span>.asm_program<br>
+<span class="keyword">end</span></code></body></html>
