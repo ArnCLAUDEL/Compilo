@@ -18,25 +18,31 @@ let rec generate_asm_expression varl sp e il =
 				    )
   | String s -> il |% (pa "leaq %a, %rax" (addr_lbl_of_string s))
   | Call(s, []) -> let call_i = ("callq "^s) in
+  					let clean_i = (pi "addq %i, %rsp" (sp)) in
   					if(sp mod 16 == 0)
   					then il |% p call_i
+  							|% clean_i
   					else il |% p "subq $8, %rsp"
   							|% p call_i
+  							|% clean_i
   							|% p "addq $8, %rsp"
   | Call(s, argl) -> 
   					let rec gen_args argl rl il = 
 						match (argl,rl) with
-							| ([],_)
-							| (_,[]) -> il
-							| ((a :: at),(r :: rt)) -> (gen_args 
-															at 
-															rt 
-															((generate_asm_expression varl sp a il)
+							| ([],_) -> il
+							| ((a :: at),[]) -> (gen_args 
+													at 
+													rl
+													((generate_asm_expression varl sp a il)
+														|% p ("pushq %rax"))
+												)
+							| ((a :: at),(r :: rt)) -> (
+														(generate_asm_expression varl sp a (gen_args at rt il)
 																|% p ("pushq %rax"))
 														) |% p ("movq (%rsp),"^r)
 															|% p("addq $8, %rsp")
 					in
-						(generate_asm_expression varl sp (Call(s, [])) (gen_args argl regl il))
+						(generate_asm_expression varl (sp+(max 0 (List.length argl*8)-48)) (Call(s, [])) (gen_args argl regl il))
 
   | UOperator(op, e) ->
   					let il2 = (generate_asm_expression varl sp e il) in
@@ -138,7 +144,7 @@ let rec generate_asm_statement varl sp retlbl s il =
         (generate_asm_expression varl sp e il)
       )
   | ReturnStat None ->
-     (il |% pi "addq %i, %rsp" sp
+     (il |% pi "addq %i, %rsp" (min sp 48)
 	 	|% p  "popq %rbp"
 	 	|% p  "retq"
      )
@@ -179,7 +185,7 @@ let generate_asm_top varl il = function
 											| [] -> (generate_asm_statement varl 0 label statement il2)
 											| argl -> (generate_asm_statement 
 														(stack_args_name argl varl 0)
-														((8*(List.length argl)))
+														(8*(List.length argl))
 														label 
 														statement 
 														(stack_args argl il2)
