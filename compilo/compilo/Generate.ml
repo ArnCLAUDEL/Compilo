@@ -12,6 +12,7 @@ let rec generate_asm_expression varl sp e il =
 					"movq %a, %rax" 
 					(List.assoc s varl)
 				    )
+  | Call(s, []) -> il |% p ("callq "^s)
   | UOperator(op, e) ->
   					let il2 = (generate_asm_expression varl sp e il) in
   					(match op with
