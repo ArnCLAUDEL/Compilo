@@ -2,6 +2,8 @@ open CLessType
 open Tools
 open ASMType
 
+let regl = ["%rdi"; "%rsi"; "%rdx"; "%rcx"; "%r8"; "%r9"]
+
 let rec generate_asm_expression varl sp e il =
   try match e with
   (* *) 
@@ -13,7 +15,19 @@ let rec generate_asm_expression varl sp e il =
 					(List.assoc s varl)
 				    )
   | Call(s, []) -> il |% p ("callq "^s)
-  | Call(s, a :: t) -> il
+  | Call(s, argl) -> 
+  					let rec gen_args argl rl il = 
+						match (argl,rl) with
+							| ([],_)
+							| (_,[]) -> il
+							| ((a :: at),(r :: rt)) -> (gen_args 
+															at 
+															rt 
+															((generate_asm_expression varl sp a il)
+																|% p ("movq %rax,"^r))
+														)
+					in
+						(gen_args argl regl il) |% p ("callq "^s)
   | UOperator(op, e) ->
   					let il2 = (generate_asm_expression varl sp e il) in
   					(match op with
@@ -108,8 +122,6 @@ let rec generate_asm_statement varl sp retlbl s il =
 	 |% p  "retq"
      )
   with Match_failure(_) -> raise (Code_gen_failure_statment s)
-  
-let regl = ["%rdi"; "%rsi"; "%rdx"; "%rcx"; "%r8"; "%r9"]
 
 let stack_args argl il = 
 	let rec stack argl rl il = 
