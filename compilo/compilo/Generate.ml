@@ -14,7 +14,13 @@ let rec generate_asm_expression varl sp e il =
 					"movq %a, %rax" 
 					(List.assoc s varl)
 				    )
-  | Call(s, []) -> il |% p ("callq "^s)
+  | String s -> il |% (pa "leaq %a, %rax" (addr_lbl_of_string s))
+  | Call(s, []) -> let call_i = ("callq "^s) in
+  					if(sp mod 16 == 0)
+  					then il |% p call_i
+  					else il |% p "subq $8, %rsp"
+  							|% p call_i
+  							|% p "addq $8, %rsp"
   | Call(s, argl) -> 
   					let rec gen_args argl rl il = 
 						match (argl,rl) with
@@ -27,7 +33,8 @@ let rec generate_asm_expression varl sp e il =
 																|% p ("movq %rax,"^r))
 														)
 					in
-						(gen_args argl regl il) |% p ("callq "^s)
+						(generate_asm_expression varl sp (Call(s, [])) (gen_args argl regl il))
+
   | UOperator(op, e) ->
   					let il2 = (generate_asm_expression varl sp e il) in
   					(match op with
