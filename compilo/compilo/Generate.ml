@@ -152,11 +152,21 @@ let stack_args argl il =
 			| ((a :: at),(r :: rt)) -> (stack at rt (il |% p ("pushq "^r)))
 	in (stack argl regl il)
 
-let rec stack_args_name argl varl sp =
-	match argl with
-	| [] -> varl
-	| v :: t -> let sp2 = sp+8 in
-					(stack_args_name t varl sp2) |% (v, (parse_arg "-%i(%rbp)" sp2))
+let stack_args_name argl varl sp =
+	let rec stack argl varl sp index =
+		match (argl,index) with
+		| ([],_) -> varl
+		| (v :: t,index) -> let sp2 = (match index with
+								| i when i < 6 -> sp+8
+								| i when i = 6 -> -16
+								| i 				-> sp-8			) in
+							((stack t varl sp2 (index+1)) |% (v, (parse_arg "%i(%rbp)" (-sp2))))
+(*
+		| (v :: t,index) when index < 6 -> let sp2 = sp+8 in
+							(stack t varl sp2 index+1) |% (v, (parse_arg "-%i(%rbp)" sp2))
+*)
+
+	in (stack argl varl 0 0)
 
 let generate_asm_top varl il = function
 
