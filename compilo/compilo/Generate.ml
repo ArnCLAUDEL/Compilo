@@ -6,7 +6,9 @@ let regl = ["%rdi"; "%rsi"; "%rdx"; "%rcx"; "%r8"; "%r9"]
 
 let rec generate_asm_expression varl sp e il =
   try match e with
-  (* *) 
+  | Seq([]) -> il
+  | Seq(e :: t) -> (generate_asm_expression varl sp (Seq t)
+  						(generate_asm_expression varl sp e il))
   | Const i -> il |% pi "movq %i, %rax" i
   | Set(s,e1) -> (generate_asm_expression varl sp e1 il)
 					|% (pa "movq %rax, %a" (List.assoc s varl))
@@ -30,8 +32,9 @@ let rec generate_asm_expression varl sp e il =
 															at 
 															rt 
 															((generate_asm_expression varl sp a il)
-																|% p ("movq %rax,"^r))
-														)
+																|% p ("pushq %rax"))
+														) |% p ("movq (%rsp),"^r)
+															|% p("addq $8, %rsp")
 					in
 						(generate_asm_expression varl sp (Call(s, [])) (gen_args argl regl il))
 
@@ -85,7 +88,19 @@ let rec generate_asm_expression varl sp e il =
               
 let rec generate_asm_statement varl sp retlbl s il =
   try match s with
-  (* *) 
+  | WhileStat(e,s) -> let lbl_begin_while = fresh_lbl "begin_while" in
+  						let lbl_end_while = fresh_lbl "end_while" in
+	  					(
+	  						generate_asm_statement varl sp retlbl s 
+		  						(
+		  							(generate_asm_expression varl sp e (il |% p (lbl_begin_while^":")))
+		  								|% p "testq %rax, %rax"
+		  								|% p ("jz "^lbl_end_while)
+		  						)
+	  					) 
+	  					|% p ("jmp "^lbl_begin_while)
+	  					|% p (lbl_end_while^":")
+
   | Expr(e) -> generate_asm_expression varl sp e il
   | IfStat (e, s1, s2) -> let lbl_else_if = fresh_lbl "else_if" in
 			  let lbl_end_if = fresh_lbl "end_if" in
@@ -123,10 +138,9 @@ let rec generate_asm_statement varl sp retlbl s il =
         (generate_asm_expression varl sp e il)
       )
   | ReturnStat None ->
-     (il
-	 |% pi "addq %i,%rsp" sp
-	 |% p  "popq %rbp"
-	 |% p  "retq"
+     (il |% pi "addq %i, %rsp" sp
+	 	|% p  "popq %rbp"
+	 	|% p  "retq"
      )
   with Match_failure(_) -> raise (Code_gen_failure_statment s)
 
