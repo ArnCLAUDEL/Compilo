@@ -13,6 +13,7 @@ let rec generate_asm_expression varl sp e il =
 					(List.assoc s varl)
 				    )
   | Call(s, []) -> il |% p ("callq "^s)
+  | Call(s, a :: t) -> il
   | UOperator(op, e) ->
   					let il2 = (generate_asm_expression varl sp e il) in
   					(match op with
@@ -107,14 +108,41 @@ let rec generate_asm_statement varl sp retlbl s il =
 	 |% p  "retq"
      )
   with Match_failure(_) -> raise (Code_gen_failure_statment s)
-       
+  
+let regl = ["%rdi"; "%rsi"; "%rdx"; "%rcx"; "%r8"; "%r9"]
+
+let stack_args argl il = 
+	let rec stack argl rl il = 
+		match (argl,rl) with
+			| ([],_)
+			| (_,[]) -> il
+			| ((a :: at),(r :: rt)) -> (stack at rt (il |% p ("pushq "^r)))
+	in (stack argl regl il)
+
+let rec stack_args_name argl varl sp =
+	match argl with
+	| [] -> varl
+	| v :: t -> let sp2 = sp+8 in
+					(stack_args_name t varl sp2) |% (v, (parse_arg "-%i(%rbp)" sp2))
+
 let generate_asm_top varl il = function
-  | FunDec(label,_,statement) -> (generate_asm_statement varl 0 label statement ( il 
-                                                      |% p (label^":")
-                                                      |% p "pushq %rbp"
-                                                      |% p "movq %rsp, %rbp"
-                                                    ))
+
+  | FunDec(label,argl,statement) -> let il2 =  ( il 
+                                                  |% p (label^":")
+                                                  |% p "pushq %rbp"
+                                                  |% p "movq %rsp, %rbp"
+                                                ) in (
+										match argl with
+											| [] -> (generate_asm_statement varl 0 label statement il2)
+											| argl -> (generate_asm_statement 
+														(stack_args_name argl varl 0)
+														((8*(List.length argl)))
+														label 
+														statement 
+														(stack_args argl il2)
+													)
+									)
   | VarDec(_) -> il
     (* les variables globals sont déjà geré dans le fichier compilo.ml.
        On ne fait donc rien ici. *)
-    
+  
