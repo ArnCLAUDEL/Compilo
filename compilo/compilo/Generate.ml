@@ -22,10 +22,9 @@ let rec generate_asm_expression varl sp e il =
   					if(sp mod 16 == 0)
   					then il |% p call_i
   							|% clean_i
-  					else il |% p "subq $8, %rsp"
-  							|% p call_i
+  					else il |% p call_i
   							|% clean_i
-  							|% p "addq $8, %rsp"
+  							
   | Call(s, argl) -> 
   					let rec gen_args argl rl il = 
 						match (argl,rl) with
@@ -42,7 +41,19 @@ let rec generate_asm_expression varl sp e il =
 														) |% p ("movq (%rsp),"^r)
 															|% p("addq $8, %rsp")
 					in
-						(generate_asm_expression varl (sp+(max 0 (List.length argl*8)-48)) (Call(s, [])) (gen_args argl regl il))
+						let il2 = (generate_asm_expression varl 
+									(sp+(max 0 (List.length argl*8)-48))
+									(Call(s, []))
+									(gen_args argl regl 
+										(if((List.length argl) mod 2 == 0)
+										then il
+										else il |% p "subq $8, %rsp"
+										)
+									)
+								) in
+									if((List.length argl) mod 2 == 0)
+									then il2
+									else il2 |% p "addq $8, %rsp"
 
   | UOperator(op, e) ->
   					let il2 = (generate_asm_expression varl sp e il) in
