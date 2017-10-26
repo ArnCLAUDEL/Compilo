@@ -1,0 +1,512 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<link rel="stylesheet" href="style.css" type="text/css">
+<meta content="text/html; charset=utf8" http-equiv="Content-Type">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="Start" href="index.html">
+<link rel="next" href="CLessType.html">
+<link rel="Up" href="index.html">
+<link title="Index of types" rel=Appendix href="index_types.html">
+<link title="Index of exceptions" rel=Appendix href="index_exceptions.html">
+<link title="Index of values" rel=Appendix href="index_values.html">
+<link title="Index of modules" rel=Appendix href="index_modules.html">
+<link title="ASMType" rel="Chapter" href="ASMType.html">
+<link title="CLessType" rel="Chapter" href="CLessType.html">
+<link title="Generate" rel="Chapter" href="Generate.html">
+<link title="Optimisation" rel="Chapter" href="Optimisation.html">
+<link title="PrintC" rel="Chapter" href="PrintC.html">
+<link title="PrintAST" rel="Chapter" href="PrintAST.html">
+<link title="Interpreter" rel="Chapter" href="Interpreter.html">
+<link title="Tools" rel="Chapter" href="Tools.html"><link title="Définitions des types " rel="Section" href="#2_Dfinitionsdestypes">
+<link title="Fonctions d'impression " rel="Section" href="#2_Fonctionsdimpression">
+<title>ASMType</title>
+</head>
+<body>
+<div class="navbar">&nbsp;<a class="up" href="index.html" title="Index">Up</a>
+&nbsp;<a class="post" href="CLessType.html" title="CLessType">Next</a>
+</div>
+<h1>Module <a href="type_ASMType.html">ASMType</a></h1>
+
+<pre><span class="keyword">module</span> ASMType: <code class="code">sig</code> <a href="ASMType.html">..</a> <code class="code">end</code></pre><div class="info module top">
+Représentation symbolique d'assembleur et fonctions d'impression<br>
+</div>
+<hr width="100%">
+<br>
+<h2 id="2_Dfinitionsdestypes">Définitions des types </h2><br>
+
+<pre><code><span id="TYPEreg"><span class="keyword">type</span> <code class="type"></code>reg</span> = </code></pre><table class="typetable">
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTreg.RAX"><span class="constructor">RAX</span></span></code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTreg.RBX"><span class="constructor">RBX</span></span></code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTreg.RCX"><span class="constructor">RCX</span></span></code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTreg.RDX"><span class="constructor">RDX</span></span></code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTreg.RBP"><span class="constructor">RBP</span></span></code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTreg.RSP"><span class="constructor">RSP</span></span></code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTreg.RSI"><span class="constructor">RSI</span></span></code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTreg.RDI"><span class="constructor">RDI</span></span></code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTreg.R8"><span class="constructor">R8</span></span></code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTreg.R9"><span class="constructor">R9</span></span></code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTreg.R10"><span class="constructor">R10</span></span></code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTreg.R11"><span class="constructor">R11</span></span></code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTreg.R12"><span class="constructor">R12</span></span></code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTreg.R13"><span class="constructor">R13</span></span></code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTreg.R14"><span class="constructor">R14</span></span></code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTreg.R15"><span class="constructor">R15</span></span></code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTreg.AL"><span class="constructor">AL</span></span></code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTreg.RIP"><span class="constructor">RIP</span></span></code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTreg.HollReg"><span class="constructor">HollReg</span></span></code></td>
+
+</tr></table>
+
+<div class="info ">
+Registres<br>
+</div>
+
+
+<pre><code><span id="TYPEintLit"><span class="keyword">type</span> <code class="type"></code>intLit</span> = </code></pre><table class="typetable">
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTintLit.HollInt"><span class="constructor">HollInt</span></span></code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTintLit.HollIntM"><span class="constructor">HollIntM</span></span></code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTintLit.IL"><span class="constructor">IL</span></span> <span class="keyword">of</span> <code class="type">int</code></code></td>
+
+</tr></table>
+
+
+
+<pre><code><span id="TYPEarg"><span class="keyword">type</span> <code class="type"></code>arg</span> = </code></pre><table class="typetable">
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTarg.HollArg"><span class="constructor">HollArg</span></span></code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTarg.C"><span class="constructor">C</span></span> <span class="keyword">of</span> <code class="type"><a href="ASMType.html#TYPEintLit">intLit</a></code></code></td>
+<td class="typefieldcomment" align="left" valign="top" ><code>(*</code></td><td class="typefieldcomment" align="left" valign="top" ><div class="info ">
+Une constante<br>
+</div>
+</td><td class="typefieldcomment" align="left" valign="bottom" ><code>*)</code></td>
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTarg.L"><span class="constructor">L</span></span> <span class="keyword">of</span> <code class="type">string</code></code></td>
+<td class="typefieldcomment" align="left" valign="top" ><code>(*</code></td><td class="typefieldcomment" align="left" valign="top" ><div class="info ">
+Un label<br>
+</div>
+</td><td class="typefieldcomment" align="left" valign="bottom" ><code>*)</code></td>
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTarg.HollLabel"><span class="constructor">HollLabel</span></span></code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTarg.R"><span class="constructor">R</span></span> <span class="keyword">of</span> <code class="type"><a href="ASMType.html#TYPEreg">reg</a></code></code></td>
+<td class="typefieldcomment" align="left" valign="top" ><code>(*</code></td><td class="typefieldcomment" align="left" valign="top" ><div class="info ">
+Un registre<br>
+</div>
+</td><td class="typefieldcomment" align="left" valign="bottom" ><code>*)</code></td>
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTarg.AC"><span class="constructor">AC</span></span> <span class="keyword">of</span> <code class="type"><a href="ASMType.html#TYPEintLit">intLit</a></code></code></td>
+<td class="typefieldcomment" align="left" valign="top" ><code>(*</code></td><td class="typefieldcomment" align="left" valign="top" ><div class="info ">
+addresse pointé par une constante<br>
+</div>
+</td><td class="typefieldcomment" align="left" valign="bottom" ><code>*)</code></td>
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTarg.ARI"><span class="constructor">ARI</span></span> <span class="keyword">of</span> <code class="type"><a href="ASMType.html#TYPEintLit">intLit</a> * <a href="ASMType.html#TYPEreg">reg</a></code></code></td>
+<td class="typefieldcomment" align="left" valign="top" ><code>(*</code></td><td class="typefieldcomment" align="left" valign="top" ><div class="info ">
+adresse pointée par un registre décalé par une constante<br>
+</div>
+</td><td class="typefieldcomment" align="left" valign="bottom" ><code>*)</code></td>
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTarg.ARL"><span class="constructor">ARL</span></span> <span class="keyword">of</span> <code class="type">string * <a href="ASMType.html#TYPEreg">reg</a></code></code></td>
+<td class="typefieldcomment" align="left" valign="top" ><code>(*</code></td><td class="typefieldcomment" align="left" valign="top" ><div class="info ">
+adresse pointée par un registre décalé par un label<br>
+</div>
+</td><td class="typefieldcomment" align="left" valign="bottom" ><code>*)</code></td>
+</tr></table>
+
+<div class="info ">
+Arguments d'une instruction assembleur<br>
+</div>
+
+
+<pre><code><span id="TYPEinstruction"><span class="keyword">type</span> <code class="type"></code>instruction</span> = </code></pre><table class="typetable">
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTinstruction.Label"><span class="constructor">Label</span></span> <span class="keyword">of</span> <code class="type"><a href="ASMType.html#TYPEarg">arg</a></code></code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTinstruction.StrLit"><span class="constructor">StrLit</span></span> <span class="keyword">of</span> <code class="type">string</code></code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTinstruction.GlobVar"><span class="constructor">GlobVar</span></span> <span class="keyword">of</span> <code class="type">string * int option</code></code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTinstruction.LinkInstr"><span class="constructor">LinkInstr</span></span> <span class="keyword">of</span> <code class="type">string</code></code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTinstruction.MOV"><span class="constructor">MOV</span></span> <span class="keyword">of</span> <code class="type"><a href="ASMType.html#TYPEarg">arg</a> * <a href="ASMType.html#TYPEarg">arg</a></code></code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTinstruction.PUSH"><span class="constructor">PUSH</span></span> <span class="keyword">of</span> <code class="type"><a href="ASMType.html#TYPEarg">arg</a></code></code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTinstruction.POP"><span class="constructor">POP</span></span> <span class="keyword">of</span> <code class="type"><a href="ASMType.html#TYPEarg">arg</a></code></code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTinstruction.CALL"><span class="constructor">CALL</span></span> <span class="keyword">of</span> <code class="type"><a href="ASMType.html#TYPEarg">arg</a></code></code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTinstruction.RET"><span class="constructor">RET</span></span></code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTinstruction.ADD"><span class="constructor">ADD</span></span> <span class="keyword">of</span> <code class="type"><a href="ASMType.html#TYPEarg">arg</a> * <a href="ASMType.html#TYPEarg">arg</a></code></code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTinstruction.MUL"><span class="constructor">MUL</span></span> <span class="keyword">of</span> <code class="type"><a href="ASMType.html#TYPEarg">arg</a> * <a href="ASMType.html#TYPEarg">arg</a></code></code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTinstruction.SUB"><span class="constructor">SUB</span></span> <span class="keyword">of</span> <code class="type"><a href="ASMType.html#TYPEarg">arg</a> * <a href="ASMType.html#TYPEarg">arg</a></code></code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTinstruction.DIV"><span class="constructor">DIV</span></span> <span class="keyword">of</span> <code class="type"><a href="ASMType.html#TYPEarg">arg</a> * <a href="ASMType.html#TYPEarg">arg</a></code></code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTinstruction.XOR"><span class="constructor">XOR</span></span> <span class="keyword">of</span> <code class="type"><a href="ASMType.html#TYPEarg">arg</a> * <a href="ASMType.html#TYPEarg">arg</a></code></code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTinstruction.OR"><span class="constructor">OR</span></span> <span class="keyword">of</span> <code class="type"><a href="ASMType.html#TYPEarg">arg</a> * <a href="ASMType.html#TYPEarg">arg</a></code></code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTinstruction.AND"><span class="constructor">AND</span></span> <span class="keyword">of</span> <code class="type"><a href="ASMType.html#TYPEarg">arg</a> * <a href="ASMType.html#TYPEarg">arg</a></code></code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTinstruction.NEG"><span class="constructor">NEG</span></span> <span class="keyword">of</span> <code class="type"><a href="ASMType.html#TYPEarg">arg</a></code></code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTinstruction.NOT"><span class="constructor">NOT</span></span> <span class="keyword">of</span> <code class="type"><a href="ASMType.html#TYPEarg">arg</a></code></code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTinstruction.CMP"><span class="constructor">CMP</span></span> <span class="keyword">of</span> <code class="type"><a href="ASMType.html#TYPEarg">arg</a> * <a href="ASMType.html#TYPEarg">arg</a></code></code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTinstruction.TEST"><span class="constructor">TEST</span></span> <span class="keyword">of</span> <code class="type"><a href="ASMType.html#TYPEarg">arg</a> * <a href="ASMType.html#TYPEarg">arg</a></code></code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTinstruction.SETE"><span class="constructor">SETE</span></span> <span class="keyword">of</span> <code class="type"><a href="ASMType.html#TYPEarg">arg</a></code></code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTinstruction.SETNE"><span class="constructor">SETNE</span></span> <span class="keyword">of</span> <code class="type"><a href="ASMType.html#TYPEarg">arg</a></code></code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTinstruction.SETNS"><span class="constructor">SETNS</span></span> <span class="keyword">of</span> <code class="type"><a href="ASMType.html#TYPEarg">arg</a></code></code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTinstruction.SETG"><span class="constructor">SETG</span></span> <span class="keyword">of</span> <code class="type"><a href="ASMType.html#TYPEarg">arg</a></code></code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTinstruction.LEAQ"><span class="constructor">LEAQ</span></span> <span class="keyword">of</span> <code class="type"><a href="ASMType.html#TYPEarg">arg</a> * <a href="ASMType.html#TYPEarg">arg</a></code></code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTinstruction.JMP"><span class="constructor">JMP</span></span> <span class="keyword">of</span> <code class="type"><a href="ASMType.html#TYPEarg">arg</a></code></code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTinstruction.JZ"><span class="constructor">JZ</span></span> <span class="keyword">of</span> <code class="type"><a href="ASMType.html#TYPEarg">arg</a></code></code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTinstruction.JNZ"><span class="constructor">JNZ</span></span> <span class="keyword">of</span> <code class="type"><a href="ASMType.html#TYPEarg">arg</a></code></code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTinstruction.NOP"><span class="constructor">NOP</span></span></code></td>
+
+</tr></table>
+
+<div class="info ">
+Instruction assembleur<br>
+</div>
+
+
+<pre><span id="TYPEasm_program"><span class="keyword">type</span> <code class="type"></code>asm_program</span> = <code class="type"><a href="ASMType.html#TYPEinstruction">instruction</a> list</code> </pre>
+<div class="info ">
+programme assembleur<br>
+</div>
+
+<br>
+<h2 id="2_Fonctionsdimpression">Fonctions d'impression </h2><br>
+
+<pre><span id="VALprint_reg"><span class="keyword">val</span> print_reg</span> : <code class="type">Pervasives.out_channel -> <a href="ASMType.html#TYPEreg">reg</a> -> unit</code></pre><div class="info ">
+Impresssion d'un registre<br>
+</div>
+
+<pre><span id="VALdnpz"><span class="keyword">val</span> dnpz</span> : <code class="type">Pervasives.out_channel -> int -> unit</code></pre>
+<pre><span id="VALprint_arg"><span class="keyword">val</span> print_arg</span> : <code class="type">Pervasives.out_channel -> <a href="ASMType.html#TYPEarg">arg</a> -> unit</code></pre>
+<pre><span id="VALprint_instruction"><span class="keyword">val</span> print_instruction</span> : <code class="type">Pervasives.out_channel -> <a href="ASMType.html#TYPEinstruction">instruction</a> -> unit</code></pre>
+<pre><span id="VALmap_arg"><span class="keyword">val</span> map_arg</span> : <code class="type">(<a href="ASMType.html#TYPEarg">arg</a> -> <a href="ASMType.html#TYPEarg">arg</a>) -> <a href="ASMType.html#TYPEinstruction">instruction</a> -> <a href="ASMType.html#TYPEinstruction">instruction</a></code></pre>
+<pre><span id="VALreplace_holl_arg"><span class="keyword">val</span> replace_holl_arg</span> : <code class="type"><a href="ASMType.html#TYPEreg">reg</a> -> int -> string -> <a href="ASMType.html#TYPEarg">arg</a> -> <a href="ASMType.html#TYPEarg">arg</a></code></pre>
+<pre><span id="VALreplace_holl"><span class="keyword">val</span> replace_holl</span> : <code class="type"><a href="ASMType.html#TYPEinstruction">instruction</a> -><br>       <a href="ASMType.html#TYPEarg">arg</a> -> <a href="ASMType.html#TYPEreg">reg</a> -> int -> string -> <a href="ASMType.html#TYPEinstruction">instruction</a></code></pre>
+<pre><span id="VALprint_programme"><span class="keyword">val</span> print_programme</span> : <code class="type">Pervasives.out_channel -> <a href="ASMType.html#TYPEinstruction">instruction</a> list -> unit</code></pre></body></html>
