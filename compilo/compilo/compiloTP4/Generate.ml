@@ -7,6 +7,7 @@ let regl = ["%rdi"; "%rsi"; "%rdx"; "%rcx"; "%r8"; "%r9"]
 
 let rec taille_expr e =
 	match e with
+		| Ref(_)
 		| Var(_)
 		| Const(_)
 		| String(_) -> 1
@@ -37,17 +38,17 @@ let stack_args argl il =
 			| ((a :: at),(r :: rt)) -> (stack at rt (il |% p ("pushq "^r)))
 	in (stack argl regl il)
 
-and stack_args_name argl varl sp =
+and stack_args_name argl varl sp inline =
 	let rec stack argl varl sp index =
 		match (argl,index) with
 		| ([],_) -> varl
 		| (v :: t,index) -> let sp2 = (match index with
-								| i when i < 6 	-> sp+8
+								| i when i < 6 || inline -> sp+8
 								| i when i = 6 	-> -16
 								| _ 			-> sp-8) in
 							((stack t varl sp2 (index+1)) |% (v, (parse_arg "%i(%rbp)" (-sp2))))
 
-	in (stack argl varl sp 0)
+	in (stack (if(inline && (48 < (List.length argl)*8))then(List.rev argl)else(argl)) varl sp 0)
 
 let check_inlining s =
 	try let (argl,st) = (getFunDec s) in
@@ -70,7 +71,7 @@ let rec generate_asm_expression varl sp e il =
 					then (	let (argl, st) = (getFunDec s) in
 							let f_lbl = (fresh_lbl s) in
 							(generate_asm_statement 
-								(stack_args_name argl varl (sp))
+								(stack_args_name argl varl sp true)
 								(8*(List.length argl))
 								f_lbl st
 								(stack_args argl il)) 
@@ -84,15 +85,16 @@ let rec generate_asm_expression varl sp e il =
   | Call(s, argl) -> 
   					let rec gen_args argl rl il = 
 						match (argl,rl) with
-							| ([],_)
-							| (_,[]) -> il
-							| ((a :: at),(r :: rt)) -> (gen_args at rt 
-															((generate_asm_expression varl sp a il)
-																|% p ("pushq %rax"))) 	
+							| ([],_) -> il
+							| ((a:: at),[]) -> ((generate_asm_expression varl sp a
+													(gen_args at [] il) |% p ("pushq %rax")))
+							| ((a :: at),(r :: rt)) ->  ((generate_asm_expression varl sp a 
+															(gen_args at rt il) |% p ("pushq %rax")))
 														|% p ("movq (%rsp),"^r)
 														|% p("addq $8, %rsp")
 					in
 						(generate_asm_expression varl sp (Call(s, [])) (gen_args argl regl il))
+							|% pi "addq %i, %rsp" (max 0 (((List.length argl)*8)-48))
 
   | UOperator(op, e) ->
   					let il2 = (generate_asm_expression varl sp e il) in
@@ -177,10 +179,10 @@ and generate_asm_statement varl sp retlbl s il =
 
   | ReturnStat None ->
      match retlbl with
-     	| "" -> il 	|% pi "addq %i, %rsp" sp
+     	| "" -> il 	|% pi "addq %i, %rsp" (min sp 48)
 				 	|% p  "popq %rbp"
 				 	|% p  "retq"
-     	| _ -> 	il 	|% pi "addq %i, %rsp" sp
+     	| _ -> 	il 	|% pi "addq %i, %rsp" (min sp 48)
      				|% p ("jmp "^retlbl)
   with Match_failure(_) -> raise (Code_gen_failure_statment s)
 
@@ -193,7 +195,7 @@ let generate_asm_top varl il = function
 										(match argl with
 											| [] -> (generate_asm_statement varl 0 "" statement il2)
 											| argl -> (generate_asm_statement 
-														(stack_args_name argl varl 0)
+														(stack_args_name argl varl 0 false)
 														((8*(List.length argl)))
 														"" statement 
 														(stack_args argl il2)))
