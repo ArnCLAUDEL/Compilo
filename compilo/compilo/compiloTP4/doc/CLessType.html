@@ -1,0 +1,370 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<link rel="stylesheet" href="style.css" type="text/css">
+<meta content="text/html; charset=utf8" http-equiv="Content-Type">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="Start" href="index.html">
+<link rel="previous" href="ASMType.html">
+<link rel="next" href="Generate.html">
+<link rel="Up" href="index.html">
+<link title="Index of types" rel=Appendix href="index_types.html">
+<link title="Index of exceptions" rel=Appendix href="index_exceptions.html">
+<link title="Index of values" rel=Appendix href="index_values.html">
+<link title="Index of modules" rel=Appendix href="index_modules.html">
+<link title="ASMType" rel="Chapter" href="ASMType.html">
+<link title="CLessType" rel="Chapter" href="CLessType.html">
+<link title="Generate" rel="Chapter" href="Generate.html">
+<link title="Optimisation" rel="Chapter" href="Optimisation.html">
+<link title="PrintC" rel="Chapter" href="PrintC.html">
+<link title="PrintAST" rel="Chapter" href="PrintAST.html">
+<link title="Interpreter" rel="Chapter" href="Interpreter.html">
+<link title="Tools" rel="Chapter" href="Tools.html"><link title="Définitions des types de l'arbre de syntaxique abstrait" rel="Section" href="#2_Dfinitionsdestypesdelarbredesyntaxiqueabstrait">
+<link title="Iterateurs génériques sur les arbres" rel="Section" href="#2_Iterateursgnriquessurlesarbres">
+<title>CLessType</title>
+</head>
+<body>
+<div class="navbar"><a class="pre" href="ASMType.html" title="ASMType">Previous</a>
+&nbsp;<a class="up" href="index.html" title="Index">Up</a>
+&nbsp;<a class="post" href="Generate.html" title="Generate">Next</a>
+</div>
+<h1>Module <a href="type_CLessType.html">CLessType</a></h1>
+
+<pre><span class="keyword">module</span> CLessType: <code class="code">sig</code> <a href="CLessType.html">..</a> <code class="code">end</code></pre><div class="info module top">
+AST d'un sous-langage de C<br>
+</div>
+<hr width="100%">
+<br>
+<h2 id="2_Dfinitionsdestypesdelarbredesyntaxiqueabstrait">Définitions des types de l'arbre de syntaxique abstrait</h2><br>
+
+<pre><code><span id="TYPEuop"><span class="keyword">type</span> <code class="type"></code>uop</span> = </code></pre><table class="typetable">
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTuop.Not"><span class="constructor">Not</span></span></code></td>
+<td class="typefieldcomment" align="left" valign="top" ><code>(*</code></td><td class="typefieldcomment" align="left" valign="top" ><div class="info ">
+négation booléenne<br>
+</div>
+</td><td class="typefieldcomment" align="left" valign="bottom" ><code>*)</code></td>
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTuop.MinusM"><span class="constructor">MinusM</span></span></code></td>
+<td class="typefieldcomment" align="left" valign="top" ><code>(*</code></td><td class="typefieldcomment" align="left" valign="top" ><div class="info ">
+moins unaire i.e. -x<br>
+</div>
+</td><td class="typefieldcomment" align="left" valign="bottom" ><code>*)</code></td>
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTuop.Deref"><span class="constructor">Deref</span></span></code></td>
+<td class="typefieldcomment" align="left" valign="top" ><code>(*</code></td><td class="typefieldcomment" align="left" valign="top" ><div class="info ">
+déréference i.e. *x<br>
+</div>
+</td><td class="typefieldcomment" align="left" valign="bottom" ><code>*)</code></td>
+</tr></table>
+
+<div class="info ">
+Type des opérateurs unaire<br>
+</div>
+
+
+<pre><code><span id="TYPEbop"><span class="keyword">type</span> <code class="type"></code>bop</span> = </code></pre><table class="typetable">
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTbop.Mult"><span class="constructor">Mult</span></span></code></td>
+<td class="typefieldcomment" align="left" valign="top" ><code>(*</code></td><td class="typefieldcomment" align="left" valign="top" ><div class="info ">
+multiplication<br>
+</div>
+</td><td class="typefieldcomment" align="left" valign="bottom" ><code>*)</code></td>
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTbop.Add"><span class="constructor">Add</span></span></code></td>
+<td class="typefieldcomment" align="left" valign="top" ><code>(*</code></td><td class="typefieldcomment" align="left" valign="top" ><div class="info ">
+addition<br>
+</div>
+</td><td class="typefieldcomment" align="left" valign="bottom" ><code>*)</code></td>
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTbop.Div"><span class="constructor">Div</span></span></code></td>
+<td class="typefieldcomment" align="left" valign="top" ><code>(*</code></td><td class="typefieldcomment" align="left" valign="top" ><div class="info ">
+division<br>
+</div>
+</td><td class="typefieldcomment" align="left" valign="bottom" ><code>*)</code></td>
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTbop.Sub"><span class="constructor">Sub</span></span></code></td>
+<td class="typefieldcomment" align="left" valign="top" ><code>(*</code></td><td class="typefieldcomment" align="left" valign="top" ><div class="info ">
+soustraction<br>
+</div>
+</td><td class="typefieldcomment" align="left" valign="bottom" ><code>*)</code></td>
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTbop.Mod"><span class="constructor">Mod</span></span></code></td>
+<td class="typefieldcomment" align="left" valign="top" ><code>(*</code></td><td class="typefieldcomment" align="left" valign="top" ><div class="info ">
+modulo<br>
+</div>
+</td><td class="typefieldcomment" align="left" valign="bottom" ><code>*)</code></td>
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTbop.And"><span class="constructor">And</span></span></code></td>
+<td class="typefieldcomment" align="left" valign="top" ><code>(*</code></td><td class="typefieldcomment" align="left" valign="top" ><div class="info ">
+et booléen<br>
+</div>
+</td><td class="typefieldcomment" align="left" valign="bottom" ><code>*)</code></td>
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTbop.Or"><span class="constructor">Or</span></span></code></td>
+<td class="typefieldcomment" align="left" valign="top" ><code>(*</code></td><td class="typefieldcomment" align="left" valign="top" ><div class="info ">
+ou booléen<br>
+</div>
+</td><td class="typefieldcomment" align="left" valign="bottom" ><code>*)</code></td>
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTbop.EQ"><span class="constructor">EQ</span></span></code></td>
+<td class="typefieldcomment" align="left" valign="top" ><code>(*</code></td><td class="typefieldcomment" align="left" valign="top" ><div class="info ">
+égale<br>
+</div>
+</td><td class="typefieldcomment" align="left" valign="bottom" ><code>*)</code></td>
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTbop.NEQ"><span class="constructor">NEQ</span></span></code></td>
+<td class="typefieldcomment" align="left" valign="top" ><code>(*</code></td><td class="typefieldcomment" align="left" valign="top" ><div class="info ">
+différent<br>
+</div>
+</td><td class="typefieldcomment" align="left" valign="bottom" ><code>*)</code></td>
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTbop.LE"><span class="constructor">LE</span></span></code></td>
+<td class="typefieldcomment" align="left" valign="top" ><code>(*</code></td><td class="typefieldcomment" align="left" valign="top" ><div class="info ">
+plus petit ou égale<br>
+</div>
+</td><td class="typefieldcomment" align="left" valign="bottom" ><code>*)</code></td>
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTbop.LL"><span class="constructor">LL</span></span></code></td>
+<td class="typefieldcomment" align="left" valign="top" ><code>(*</code></td><td class="typefieldcomment" align="left" valign="top" ><div class="info ">
+strictement plus petit<br>
+</div>
+</td><td class="typefieldcomment" align="left" valign="bottom" ><code>*)</code></td>
+</tr></table>
+
+<div class="info ">
+Type des opérateurs binaires<br>
+</div>
+
+
+<pre><code><span id="TYPEexpression"><span class="keyword">type</span> <code class="type"></code>expression</span> = </code></pre><table class="typetable">
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTexpression.Var"><span class="constructor">Var</span></span> <span class="keyword">of</span> <code class="type">string</code></code></td>
+<td class="typefieldcomment" align="left" valign="top" ><code>(*</code></td><td class="typefieldcomment" align="left" valign="top" ><div class="info ">
+nom d'une variable<br>
+</div>
+</td><td class="typefieldcomment" align="left" valign="bottom" ><code>*)</code></td>
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTexpression.Const"><span class="constructor">Const</span></span> <span class="keyword">of</span> <code class="type">int</code></code></td>
+<td class="typefieldcomment" align="left" valign="top" ><code>(*</code></td><td class="typefieldcomment" align="left" valign="top" ><div class="info ">
+entier littéral, i.e. constante<br>
+</div>
+</td><td class="typefieldcomment" align="left" valign="bottom" ><code>*)</code></td>
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTexpression.Set"><span class="constructor">Set</span></span> <span class="keyword">of</span> <code class="type">string * <a href="CLessType.html#TYPEexpression">expression</a></code></code></td>
+<td class="typefieldcomment" align="left" valign="top" ><code>(*</code></td><td class="typefieldcomment" align="left" valign="top" ><div class="info ">
+assigement de variable i.e. <code class="code">Set("x",e)</code> -&gt; x=e;<br>
+</div>
+</td><td class="typefieldcomment" align="left" valign="bottom" ><code>*)</code></td>
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTexpression.Call"><span class="constructor">Call</span></span> <span class="keyword">of</span> <code class="type">string * <a href="CLessType.html#TYPEexpression">expression</a> list</code></code></td>
+<td class="typefieldcomment" align="left" valign="top" ><code>(*</code></td><td class="typefieldcomment" align="left" valign="top" ><div class="info ">
+appel de fonction i.e. <code class="code">Call("f",[e1;e2; ...])</code> -&gt; f(e1,e2,...)<br>
+</div>
+</td><td class="typefieldcomment" align="left" valign="bottom" ><code>*)</code></td>
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTexpression.UOperator"><span class="constructor">UOperator</span></span> <span class="keyword">of</span> <code class="type"><a href="CLessType.html#TYPEuop">uop</a> * <a href="CLessType.html#TYPEexpression">expression</a></code></code></td>
+<td class="typefieldcomment" align="left" valign="top" ><code>(*</code></td><td class="typefieldcomment" align="left" valign="top" ><div class="info ">
+application d'opérateur unaire<br>
+</div>
+</td><td class="typefieldcomment" align="left" valign="bottom" ><code>*)</code></td>
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTexpression.BOperator"><span class="constructor">BOperator</span></span> <span class="keyword">of</span> <code class="type"><a href="CLessType.html#TYPEexpression">expression</a> * <a href="CLessType.html#TYPEbop">bop</a> * <a href="CLessType.html#TYPEexpression">expression</a></code></code></td>
+<td class="typefieldcomment" align="left" valign="top" ><code>(*</code></td><td class="typefieldcomment" align="left" valign="top" ><div class="info ">
+application d'opérateur binaire<br>
+</div>
+</td><td class="typefieldcomment" align="left" valign="bottom" ><code>*)</code></td>
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTexpression.Seq"><span class="constructor">Seq</span></span> <span class="keyword">of</span> <code class="type"><a href="CLessType.html#TYPEexpression">expression</a> list</code></code></td>
+<td class="typefieldcomment" align="left" valign="top" ><code>(*</code></td><td class="typefieldcomment" align="left" valign="top" ><div class="info ">
+séquence d'expression i.e. <code class="code">Seq([e1;e2;...])</code> -&gt; e1;e2;...<br>
+</div>
+</td><td class="typefieldcomment" align="left" valign="bottom" ><code>*)</code></td>
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTexpression.String"><span class="constructor">String</span></span> <span class="keyword">of</span> <code class="type">string</code></code></td>
+<td class="typefieldcomment" align="left" valign="top" ><code>(*</code></td><td class="typefieldcomment" align="left" valign="top" ><div class="info ">
+string littéral i.e. chaine de caractères constante<br>
+</div>
+</td><td class="typefieldcomment" align="left" valign="bottom" ><code>*)</code></td>
+</tr></table>
+
+<div class="info ">
+Type des expressions C<br>
+</div>
+
+
+<pre><code><span id="TYPEstatement"><span class="keyword">type</span> <code class="type"></code>statement</span> = </code></pre><table class="typetable">
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTstatement.BlockStat"><span class="constructor">BlockStat</span></span> <span class="keyword">of</span> <code class="type">string list * <a href="CLessType.html#TYPEstatement">statement</a> list</code></code></td>
+<td class="typefieldcomment" align="left" valign="top" ><code>(*</code></td><td class="typefieldcomment" align="left" valign="top" ><div class="info ">
+bloc: liste de déclaration de variable locale
+et liste de statement<br>
+</div>
+</td><td class="typefieldcomment" align="left" valign="bottom" ><code>*)</code></td>
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTstatement.Expr"><span class="constructor">Expr</span></span> <span class="keyword">of</span> <code class="type"><a href="CLessType.html#TYPEexpression">expression</a></code></code></td>
+<td class="typefieldcomment" align="left" valign="top" ><code>(*</code></td><td class="typefieldcomment" align="left" valign="top" ><div class="info ">
+une expression<br>
+</div>
+</td><td class="typefieldcomment" align="left" valign="bottom" ><code>*)</code></td>
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTstatement.IfStat"><span class="constructor">IfStat</span></span> <span class="keyword">of</span> <code class="type"><a href="CLessType.html#TYPEexpression">expression</a> * <a href="CLessType.html#TYPEstatement">statement</a> * <a href="CLessType.html#TYPEstatement">statement</a></code></code></td>
+<td class="typefieldcomment" align="left" valign="top" ><code>(*</code></td><td class="typefieldcomment" align="left" valign="top" ><div class="info ">
+bloc if-then-else: <code class="code">IfStat(e,s1,s2)</code> -&gt; if(e){s1}else{s2}<br>
+</div>
+</td><td class="typefieldcomment" align="left" valign="bottom" ><code>*)</code></td>
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTstatement.WhileStat"><span class="constructor">WhileStat</span></span> <span class="keyword">of</span> <code class="type"><a href="CLessType.html#TYPEexpression">expression</a> * <a href="CLessType.html#TYPEstatement">statement</a></code></code></td>
+<td class="typefieldcomment" align="left" valign="top" ><code>(*</code></td><td class="typefieldcomment" align="left" valign="top" ><div class="info ">
+bloc while: <code class="code">WhileStat(e,s)</code> -&gt; while(e){s}<br>
+</div>
+</td><td class="typefieldcomment" align="left" valign="bottom" ><code>*)</code></td>
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTstatement.ReturnStat"><span class="constructor">ReturnStat</span></span> <span class="keyword">of</span> <code class="type"><a href="CLessType.html#TYPEexpression">expression</a> option</code></code></td>
+<td class="typefieldcomment" align="left" valign="top" ><code>(*</code></td><td class="typefieldcomment" align="left" valign="top" ><div class="info ">
+retour d'une fonction<br>
+</div>
+</td><td class="typefieldcomment" align="left" valign="bottom" ><code>*)</code></td>
+</tr></table>
+
+
+
+<pre><code><span id="TYPEdeclaration"><span class="keyword">type</span> <code class="type"></code>declaration</span> = </code></pre><table class="typetable">
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTdeclaration.VarDec"><span class="constructor">VarDec</span></span> <span class="keyword">of</span> <code class="type">string * int option</code></code></td>
+<td class="typefieldcomment" align="left" valign="top" ><code>(*</code></td><td class="typefieldcomment" align="left" valign="top" ><div class="info ">
+définition de variable global<br>
+</div>
+</td><td class="typefieldcomment" align="left" valign="bottom" ><code>*)</code></td>
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTdeclaration.FunDec"><span class="constructor">FunDec</span></span> <span class="keyword">of</span> <code class="type">string * string list * <a href="CLessType.html#TYPEstatement">statement</a></code></code></td>
+<td class="typefieldcomment" align="left" valign="top" ><code>(*</code></td><td class="typefieldcomment" align="left" valign="top" ><div class="info ">
+définition de fonction<br>
+</div>
+</td><td class="typefieldcomment" align="left" valign="bottom" ><code>*)</code></td>
+</tr></table>
+
+
+<br>
+<h2 id="2_Iterateursgnriquessurlesarbres">Iterateurs génériques sur les arbres</h2><br>
+
+<pre><span id="VALiter_fun_expr"><span class="keyword">val</span> iter_fun_expr</span> : <code class="type">(<a href="CLessType.html#TYPEexpression">expression</a> -> <a href="CLessType.html#TYPEexpression">expression</a> option) -><br>       <a href="CLessType.html#TYPEexpression">expression</a> -> <a href="CLessType.html#TYPEexpression">expression</a></code></pre><div class="info ">
+Iterateur sur les expressions<br>
+</div>
+
+<pre><span id="VALiter_fun_stat"><span class="keyword">val</span> iter_fun_stat</span> : <code class="type">(<a href="CLessType.html#TYPEexpression">expression</a> -> <a href="CLessType.html#TYPEexpression">expression</a> option) -><br>       (<a href="CLessType.html#TYPEstatement">statement</a> -> <a href="CLessType.html#TYPEstatement">statement</a> option) -><br>       <a href="CLessType.html#TYPEstatement">statement</a> -> <a href="CLessType.html#TYPEstatement">statement</a></code></pre><div class="info ">
+Iterateur sur les statements<br>
+</div>
+
+<pre><span id="VALiter_fun_top"><span class="keyword">val</span> iter_fun_top</span> : <code class="type">(<a href="CLessType.html#TYPEexpression">expression</a> -> <a href="CLessType.html#TYPEexpression">expression</a> option) -><br>       (<a href="CLessType.html#TYPEstatement">statement</a> -> <a href="CLessType.html#TYPEstatement">statement</a> option) -><br>       <a href="CLessType.html#TYPEdeclaration">declaration</a> -> <a href="CLessType.html#TYPEdeclaration">declaration</a></code></pre></body></html>

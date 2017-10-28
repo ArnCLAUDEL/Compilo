@@ -1,0 +1,28 @@
+12digraph AST {id1 [label="FunDec main()",shape=diamond]
+id2 [label="3"]
+id3 [label="Set x"]
+id3 -> id2
+id4 [label="Expr",shape=box]
+id4 -> id3
+id5 [label="5"]
+id6 [label="Set y"]
+id6 -> id5
+id7 [label="Expr",shape=box]
+id7 -> id6
+id8 [label="x"]
+id9 [label="2"]
+id10 [label="y"]
+id11 [label="*"]
+id11 -> id9
+id11 -> id10
+id12 [label="+"]
+id12 -> id8
+id12 -> id11
+id13 [label="Return",shape=box]
+id13 -> id12
+id14 [label="BlockStat(x,y)",shape=box]
+id14 -> id13
+id14 -> id7
+id14 -> id4
+id1 -> id14
+}
