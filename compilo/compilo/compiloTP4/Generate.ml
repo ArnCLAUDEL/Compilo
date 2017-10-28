@@ -58,7 +58,7 @@ let check_inlining s =
 
 let rec generate_asm_expression varl sp e il =
   try match e with
-  | Ref(v) -> il |% (pa "leaq %a, %rax" (addr_lbl_of_string v))
+  | Ref(v) -> il |% (pa "leaq %a, %rax" (List.assoc v varl))
   | Const i -> il |% pi "movq %i, %rax" i
   | Set(s,e1) -> (generate_asm_expression varl sp e1 il) |% (pa "movq %rax, %a" (List.assoc s varl))
   | Var s -> il |% (pa "movq %a, %rax"  (List.assoc s varl))
@@ -111,27 +111,35 @@ let rec generate_asm_expression varl sp e il =
   											|% p ("movq $1, %rax")
   											|% p (ez^":"))))
   | BOperator(e1, op, e2) -> 
-			      let il2 = (generate_asm_expression varl sp e1
+			      	let il2 = (generate_asm_expression varl sp e1
 							  ((generate_asm_expression varl sp e2 il) |% p "pushq %rax")) in  
-			      let expr = " (%rsp), %rax" in
-			    (match op with
-			        | Add -> il2 	|% p ("addq"^expr)
-			        | Sub -> il2 	|% p ("subq"^expr)
-			        | Mult -> il2 	|% p ("imulq"^expr)
-					| Mod -> il2 	|% p "movq $0, %rdx" |% p ("idivq"^expr) |% p "movq %rdx, %rax"
-					| Div -> il2 	|% p "movq $0, %rdx" |% p ("idivq"^expr)
-					| And -> il2 	|% p ("andq"^expr)
-					| Or -> il2  	|% p ("orq"^expr)
-					| SetReference -> il2 	|% p ("movq %rax, %rbx") |% p ("popq %rax") |% p ("movq %rax, (%rbx)")
-					| _ -> il2 	|% p ("cmpq %rax, (%rsp)") |% p ("movq $0, %rax")
-								|% p (match op with
-										| EQ -> "sete %al"
-										| NEQ -> "setne %al"
-										| LE -> "setns %al"
-										| LL -> "setg %al"
-										| _ -> "")
-				)
-			   	|% p "addq $8, %rsp"
+			      	let expr = " (%rsp), %rax" in
+				 	(match op with
+			        	| SetReference -> il2 |% p ("movq %rax, %rbx") |% p ("popq %rax") |% p ("movq %rax, (%rbx)")
+			        	| _ -> (match op with
+					        | Add -> 	il2 |% p ("addq"^expr)
+					        | Sub -> 	il2 |% p ("subq"^expr)
+					        | Mult ->	il2	|% p ("imulq"^expr)
+							| Mod -> 	il2 |% p "movq $0, %rdx" |% p ("idivq"^expr) |% p "movq %rdx, %rax"
+							| Div -> 	il2	|% p "movq $0, %rdx" |% p ("idivq"^expr)
+							| And -> 	il2	|% p ("andq"^expr)
+							| Or -> 	il2	|% p ("orq"^expr)
+							
+							(*| SetArray(t,i,e) -> il2 	|% pa "movq %a, %rax" (List.assoc t varl) 
+														|% pi "addq %i, %rax" (8*i)
+														|% p "pushq %rax"*)
+
+
+							| _ -> il2 	|% p ("cmpq %rax, (%rsp)") |% p ("movq $0, %rax")
+										|% p (match op with
+												| EQ -> "sete %al"
+												| NEQ -> "setne %al"
+												| LE -> "setns %al"
+												| LL -> "setg %al"
+												| _ -> "")
+						)
+				   		|% p "addq $8, %rsp"
+				   )
   with Match_failure(_) -> raise (Code_gen_failure_expression e)
               
 and generate_asm_statement varl sp retlbl s il =
@@ -198,5 +206,9 @@ let generate_asm_top varl il = function
 														(stack_args_name argl varl 0 false)
 														((8*(List.length argl)))
 														"" statement 
-														(stack_args argl il2)))
+														(stack_args argl il2))
+										) 	
+										|% pi "addq %i, %rsp" ((8*(List.length argl)))
+										|% p  "popq %rbp"
+				 						|% p  "retq"
   
