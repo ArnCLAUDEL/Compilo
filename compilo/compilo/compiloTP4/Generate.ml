@@ -206,10 +206,10 @@ and generate_asm_statement varl sp retlbl s il =
 
   | ReturnStat None ->
      match retlbl with
-     	| "" -> il 	|% pi "addq %i, %rsp" (min sp 48)
+     	| "" -> il 	|% pi "addq %i, %rsp" (min sp sp)
 				 	|% p  "popq %rbp"
 				 	|% p  "retq"
-     	| _ -> 	il 	|% pi "addq %i, %rsp" (min sp 48)
+     	| _ -> 	il 	|% pi "addq %i, %rsp" (min sp sp)
      				|% p ("jmp "^retlbl)
   with Match_failure(_) -> raise (Code_gen_failure_statment s)
 
