@@ -18,6 +18,7 @@ let rec taille_expr e =
 		| BOperator(e1,_,e2) -> 1 + (taille_expr e1) + (taille_expr e2)
 		| Seq([]) -> 0
 		| Seq(e :: t) -> (taille_expr e) + taille_expr(Seq(t)) 
+		| SetArray(t,i,e) -> 1 + (taille_expr i) + (taille_expr e)
 and taille_stat s =
 	match s with
 		| Expr e -> (taille_expr e)
@@ -66,7 +67,19 @@ let rec generate_asm_expression varl sp e il =
   | Seq([]) -> il
   | Seq(e :: t) -> (generate_asm_expression varl sp (Seq t) 
   						(generate_asm_expression varl sp e il))
-  
+  | SetArray(t,i,e) -> 
+  					(generate_asm_expression varl sp i
+  						(generate_asm_expression varl sp e il|% p "pushq %rax") )
+  						|% p "pushq $8"
+  						|% p "imulq (%rsp), %rax"
+  						|% p "addq $8, %rsp"
+  						|% p "pushq %rax"
+  						|% (pa "movq %a, %rax" (List.assoc t varl))
+  						|% p "addq (%rsp), %rax" 
+  						|% p "addq $8, %rsp"
+  						|% p "movq %rax, %rbx"
+  						|% p "popq %rax"
+  						|% p "movq %rax, (%rbx)"
   | Call(s, []) -> 	if(check_inlining s) 
 					then (	let (argl, st) = (getFunDec s) in
 							let f_lbl = (fresh_lbl s) in
@@ -92,6 +105,8 @@ let rec generate_asm_expression varl sp e il =
 															(gen_args at rt il) |% p ("pushq %rax")))
 														|% p ("movq (%rsp),"^r)
 														|% p("addq $8, %rsp")
+	(* les movq doivent être faits à la fin des générations et non en plein milieu
+		car on perd les résultats ici *)
 					in
 						(generate_asm_expression varl sp (Call(s, [])) (gen_args argl regl il))
 							|% pi "addq %i, %rsp" (max 0 (((List.length argl)*8)-48))
@@ -116,6 +131,12 @@ let rec generate_asm_expression varl sp e il =
 			      	let expr = " (%rsp), %rax" in
 				 	(match op with
 			        	| SetReference -> il2 |% p ("movq %rax, %rbx") |% p ("popq %rax") |% p ("movq %rax, (%rbx)")
+			        	| Index -> il2 	|% p "popq %rax" 
+			        					|% p "pushq $8"
+			        					|% p "imulq (%rsp), %rax" 
+			        					|% p "addq $8, %rsp"
+			        					|% p "addq (%rsp), %rax"
+			        					|% p "movq (%rax), %rax"
 			        	| _ -> (match op with
 					        | Add -> 	il2 |% p ("addq"^expr)
 					        | Sub -> 	il2 |% p ("subq"^expr)
@@ -124,12 +145,6 @@ let rec generate_asm_expression varl sp e il =
 							| Div -> 	il2	|% p "movq $0, %rdx" |% p ("idivq"^expr)
 							| And -> 	il2	|% p ("andq"^expr)
 							| Or -> 	il2	|% p ("orq"^expr)
-							
-							(*| SetArray(t,i,e) -> il2 	|% pa "movq %a, %rax" (List.assoc t varl) 
-														|% pi "addq %i, %rax" (8*i)
-														|% p "pushq %rax"*)
-
-
 							| _ -> il2 	|% p ("cmpq %rax, (%rsp)") |% p ("movq $0, %rax")
 										|% p (match op with
 												| EQ -> "sete %al"
