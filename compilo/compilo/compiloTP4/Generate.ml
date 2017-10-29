@@ -131,29 +131,33 @@ let rec generate_asm_expression varl sp e il =
 			      	let expr = " (%rsp), %rax" in
 				 	(match op with
 			        	| SetReference -> il2 |% p ("movq %rax, %rbx") |% p ("popq %rax") |% p ("movq %rax, (%rbx)")
-			        	| Index -> il2 	|% p "popq %rax" 
+			        	| Index -> il2 	
+			        					|% p "pushq %rax"
+			        					|% p "movq 8(%rsp), %rax"
 			        					|% p "pushq $8"
 			        					|% p "imulq (%rsp), %rax" 
 			        					|% p "addq $8, %rsp"
 			        					|% p "addq (%rsp), %rax"
 			        					|% p "movq (%rax), %rax"
+			        					|% p "addq $16, %rsp"
+
 			        	| _ -> (match op with
-					        | Add -> 	il2 |% p ("addq"^expr)
-					        | Sub -> 	il2 |% p ("subq"^expr)
-					        | Mult ->	il2	|% p ("imulq"^expr)
-							| Mod -> 	il2 |% p "movq $0, %rdx" |% p ("idivq"^expr) |% p "movq %rdx, %rax"
-							| Div -> 	il2	|% p "movq $0, %rdx" |% p ("idivq"^expr)
-							| And -> 	il2	|% p ("andq"^expr)
-							| Or -> 	il2	|% p ("orq"^expr)
-							| _ -> il2 	|% p ("cmpq %rax, (%rsp)") |% p ("movq $0, %rax")
-										|% p (match op with
+						        | Add -> 	il2 |% p ("addq"^expr)
+						        | Sub -> 	il2 |% p ("subq"^expr)
+						        | Mult ->	il2	|% p ("imulq"^expr)
+								| Mod -> 	il2 |% p "movq $0, %rdx" |% p ("idivq"^expr) |% p "movq %rdx, %rax"
+								| Div -> 	il2	|% p "movq $0, %rdx" |% p ("idivq"^expr)
+								| And -> 	il2	|% p ("andq"^expr)
+								| Or -> 	il2	|% p ("orq"^expr)
+								| _ -> il2 	|% p ("cmpq %rax, (%rsp)") |% p ("movq $0, %rax")
+											|% p (match op with
 												| EQ -> "sete %al"
 												| NEQ -> "setne %al"
 												| LE -> "setns %al"
 												| LL -> "setg %al"
 												| _ -> "")
-						)
-				   		|% p "addq $8, %rsp"
+								)
+						   		|% p "addq $8, %rsp"
 				   )
   with Match_failure(_) -> raise (Code_gen_failure_expression e)
               
