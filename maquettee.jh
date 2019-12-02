@@ -1,0 +1,24 @@
+entity Tp {
+ title String,
+ description String,
+ solution String,
+ available Boolean
+}
+
+entity HistoriqueTp {
+ startDate Date,
+ endDate Date,
+ commands String,
+ comments String
+}
+
+relationship OneToMany {
+ HistoriqueTp{tp} to Tp,
+ HistoriqueTp{technicien} to User
+}
+
+service Tp with TpService
+service HistoriqueTp with HistoriqueTpService
+
+paginate Tp with infinite-scroll
+paginate HistoriqueTp with infinite-scroll
